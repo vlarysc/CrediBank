@@ -1,25 +1,47 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import { Container } from '@material-ui/core';
+import FormCadastro from './components/FormCadastro/FormCadastro'
+import Notify from './utils/Notify.js'
+import { valCPF, valEmail } from './utils/Validacoes.js'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <Container maxWidth="sm">
+        <h1 align="center">CrediBank</h1>
+        <FormCadastro save={cadastrar} valCPF={valCPF} valEmail={valEmail} />
+      </Container>
+    )
+  }
+}
+
+function cadastrar(dados) {
+  const {
+    nome,
+    sobrenome,
+    cpf,
+    nascimento,
+    email,
+    telefone,
+    senha,
+    senhaConfirmada
+  } = dados;
+  if (!nome || !sobrenome || !cpf || !nascimento || !email || !telefone || !senha || !senhaConfirmada) {
+    Notify("error", "Campo Obrigatório!");
+  }
+  if (cpf.length !== 11) {
+    Notify("error", "Campo Obrigatório!");
+  }
+  if (telefone.length !== 11) {
+    Notify("error", "Campo Obrigatório!");
+    /*  return { valido: false, texto: "Necessário um número de telefone válido!" } */
+  }
+  else {
+    Notify("success", "Cadastrado com Sucesso!");
+    console.log(dados)
+  }
+
 }
 
 export default App;
