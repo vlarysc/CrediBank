@@ -16,29 +16,44 @@ export const valEmail = (email) => {
   }
 }
 
-export function valTelefone(cpf) {
-  if (cpf.length !== 11) {
+export function valTelefone(telefone) {
+  if (telefone.length !== 11) {
     return { valido: false, texto: "CPF deve ter 11 digitos." }
   } else {
     return { valido: true, texto: "" }
   }
 }
-export function valSenha(cpf) {
-  if (cpf.length !== 11) {
+export function valSenha(senha) {
+  if (senha.length !== 11) {
     return { valido: false, texto: "CPF deve ter 11 digitos." }
   } else {
     return { valido: true, texto: "" }
   }
 }
-export function valSenhaConfirmada(cpf) {
-  if (cpf.length !== 11) {
+export function valSenhaConfirmada(senhaConfirmada, senha) {
+  if (senhaConfirmada !== senha) {
+    return { valido: false, texto: "Senhas não coicidem!" }
+  } else {
+    return { valido: true, texto: "" }
+  }
+}
+export function valNascimento(nascimento) {
+  if (nascimento.length !== 11) {
     return { valido: false, texto: "CPF deve ter 11 digitos." }
   } else {
     return { valido: true, texto: "" }
   }
 }
-export function val(cpf) {
-  if (cpf.length !== 11) {
+
+export function valNome(nome) {
+  if (nome.length !== 11) {
+    return { valido: false, texto: "CPF deve ter 11 digitos." }
+  } else {
+    return { valido: true, texto: "" }
+  }
+}
+export function valSobrenome(sobrenome) {
+  if (sobrenome.length !== 11) {
     return { valido: false, texto: "CPF deve ter 11 digitos." }
   } else {
     return { valido: true, texto: "" }

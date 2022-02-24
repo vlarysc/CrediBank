@@ -3,7 +3,7 @@ import InputMask from 'react-input-mask';
 import { TextField, Fab, Typography } from '@material-ui/core';
 
 
-function FormCadastro({ save, valCPF, valEmail }) {
+function FormCadastro({ save, valCPF, valEmail, valSenhaConfirmada }) {
   const [nome, setNome] = useState('');
   const [sobrenome, setSobrenome] = useState('');
   const [cpf, setCPF] = useState('');
@@ -140,6 +140,11 @@ function FormCadastro({ save, valCPF, valEmail }) {
         value={senhaConfirmada}
         error={!erros.senhaConfirmada.valido}
         helperText={erros.senhaConfirmada.texto}
+        onBlur={() => {
+          const validar = valSenhaConfirmada(senhaConfirmada, senha)
+          setSenhaConfirmada({ ...erros, senhaConfirmada: validar })
+          console.log(erros.senhaConfirmada)
+        }}
         label="Senha"
         variant="outlined"
         margin="normal"
