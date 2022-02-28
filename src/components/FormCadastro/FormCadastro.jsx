@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import InputMask from 'react-input-mask';
 import { TextField, Fab, Typography } from '@material-ui/core';
+import { ClienteContext } from '../../contexts/cliente/State.js';
+import Notify from '../../utils/Notify.js';
+import {
+  valCPF,
+  valNascimento,
+  valEmail,
+  valTelefone,
+  valSenha,
+  valSenhaConfirmada,
+} from '../../utils/Validacoes.js';
 
 
-function FormCadastro({ save, valCPF, valEmail, valSenhaConfirmada }) {
+
+function FormCadastro() {
+  const { saveCliente } = useContext(ClienteContext);
+  const [cliente, setCliente] = useState()
   const [nome, setNome] = useState('');
   const [sobrenome, setSobrenome] = useState('');
   const [cpf, setCPF] = useState('');
@@ -15,35 +28,63 @@ function FormCadastro({ save, valCPF, valEmail, valSenhaConfirmada }) {
   const [erros, setErros] = useState({
     cpf: { valido: true, texto: '' },
     email: { valido: true, texto: '' },
-    nome: { valido: true, texto: '' },
-    sobrenome: { valido: true, texto: '' },
     nascimento: { valido: true, texto: '' },
     telefone: { valido: true, texto: '' },
     senha: { valido: true, texto: '' },
     senhaConfirmada: { valido: true, texto: '' },
   });
+  console.log(valCPF)
+
+  function inputChange() {
+    setCliente({
+      ...cliente,
+      nome: nome,
+      sobrenome: sobrenome,
+      cpf: cpf,
+      nascimento: nascimento,
+      email: email,
+      telefone: telefone,
+      senha: senha,
+    })
+  }
+
+  function salvar(e) {
+    e.preventDefault();
+    if (
+      !nome ||
+      !sobrenome ||
+      !cpf ||
+      !nascimento ||
+      !email ||
+      !telefone ||
+      !senha ||
+      !senhaConfirmada
+    ) {
+      Notify('error', 'Campo Obrigatório!');
+    }
+    if (cpf.length !== 11) {
+      Notify('error', 'Campo Obrigatório!');
+    }
+    if (telefone.length !== 11) {
+      Notify('error', 'Campo Obrigatório!');
+
+    } else {
+      Notify('success', 'Cadastrado com Sucesso!');
+      saveCliente(cliente);
+      console.log("All clientes", cliente)
+    }
+  }
 
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        save({
-          nome,
-          sobrenome,
-          cpf,
-          nascimento,
-          email,
-          telefone,
-          senha,
-          senhaConfirmada,
-        });
-      }}
+      onSubmit={salvar}
     >
       <TextField
-        onChange={(e) => setNome(e.target.value)}
+        onChange={(e) => {
+          setNome(e.target.value);
+          inputChange();
+        }}
         value={nome}
-        error={!erros.nome.valido}
-        helperText={erros.nome.texto}
         label="Nome"
         variant="outlined"
         fullWidth
@@ -52,15 +93,16 @@ function FormCadastro({ save, valCPF, valEmail, valSenhaConfirmada }) {
       <TextField
         onChange={(e) => setSobrenome(e.target.value)}
         value={sobrenome}
-        error={!erros.sobrenome.valido}
-        helperText={erros.sobrenome.texto}
         label="Sobrenome"
         variant="outlined"
         fullWidth
         margin="normal"
       />
       <TextField
-        onChange={(e) => setCPF(e.target.value)}
+        onChange={(e) => {
+          setCPF(e.target.value);
+          inputChange();
+        }}
         value={cpf}
         error={!erros.cpf.valido}
         helperText={erros.cpf.texto}
@@ -75,7 +117,10 @@ function FormCadastro({ save, valCPF, valEmail, valSenhaConfirmada }) {
       />
       <InputMask
         mask="99/99/9999"
-        onChange={(e) => setNascimento(e.target.value)}
+        onChange={(e) => {
+          setNascimento(e.target.value);
+          inputChange();
+        }}
         value={nascimento}
         error={!erros.nascimento.valido}
         helperText={erros.nascimento.texto}
@@ -90,7 +135,10 @@ function FormCadastro({ save, valCPF, valEmail, valSenhaConfirmada }) {
         )}
       </InputMask>
       <TextField
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => {
+          setEmail(e.target.value);
+          inputChange();
+        }}
         value={email}
         error={!erros.email.valido}
         helperText={erros.email.texto}
@@ -105,11 +153,14 @@ function FormCadastro({ save, valCPF, valEmail, valSenhaConfirmada }) {
       />
       <InputMask
         mask="(99) 9 9999-9999"
-        onChange={(e) => setTelefone(e.target.value)}
+        onChange={(e) => {
+          setTelefone(e.target.value);
+          inputChange();
+        }}
         value={telefone}
 
         onBlur={() => {
-          const validar = save(telefone);
+          const validar = valTelefone(telefone);
           setErros({ ...erros, telefone: validar });
         }}
       >
@@ -125,7 +176,10 @@ function FormCadastro({ save, valCPF, valEmail, valSenhaConfirmada }) {
         )}
       </InputMask>
       <TextField
-        onChange={(e) => setSenha(e.target.value)}
+        onChange={(e) => {
+          setSenha(e.target.value);
+          inputChange();
+        }}
         value={senha}
         error={!erros.senha.valido}
         helperText={erros.senha.texto}
@@ -136,14 +190,16 @@ function FormCadastro({ save, valCPF, valEmail, valSenhaConfirmada }) {
         type="password"
       />
       <TextField
-        onChange={(e) => setSenhaConfirmada(e.target.value)}
+        onChange={(e) => {
+          setSenhaConfirmada(e.target.value);
+          inputChange();
+        }}
         value={senhaConfirmada}
         error={!erros.senhaConfirmada.valido}
         helperText={erros.senhaConfirmada.texto}
         onBlur={() => {
           const validar = valSenhaConfirmada(senhaConfirmada, senha)
           setSenhaConfirmada({ ...erros, senhaConfirmada: validar })
-          console.log(erros.senhaConfirmada)
         }}
         label="Senha"
         variant="outlined"

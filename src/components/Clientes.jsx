@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import ListCliente from './ListCliente'
-import { UserContext } from '../contexts/cliente/State.js'
+import { ClienteContext } from '../contexts/cliente/State.js'
 
 const Clientes = () => {
-  const context = useContext(UserContext);
+  const context = useContext(ClienteContext);
   console.log(context);
   const data = context.clientes.map(cliente => (
     <ListCliente cliente={cliente}> </ListCliente>

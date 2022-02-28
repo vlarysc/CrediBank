@@ -1,27 +1,27 @@
 import React, { useState, createContext } from 'react';
 
-export const UserContext = createContext();
+export const ClienteContext = createContext();
 
 const ClienteProvider = ({ children }) => {
   const [clientes, setClientes] = useState([
-    {
-      nome: "Manoel",
-      sobrenome: "Alves",
-      cpf: "11111111111",
-      nascimento: "11071993",
-      email: "dsa@gmail.com",
-      telefone: "5499999999",
-      senha: "852165785",
-    },
-    {
-      nome: "Manoel",
-      sobrenome: "Alves",
-      cpf: "11111111111",
-      nascimento: "11071993",
-      email: "dsa@gmail.com",
-      telefone: "5499999999",
-      senha: "852165785",
-    }
+    /*  {
+       nome: "Manoel",
+       sobrenome: "Alves",
+       cpf: "11111111111",
+       nascimento: "11071993",
+       email: "dsa@gmail.com",
+       telefone: "5499999999",
+       senha: "852165785",
+     },
+     {
+       nome: "Manoel",
+       sobrenome: "Alves",
+       cpf: "11111111111",
+       nascimento: "11071993",
+       email: "dsa@gmail.com",
+       telefone: "5499999999",
+       senha: "852165785",
+     } */
   ]);
   const saveCliente = cliente => {
     const novoCliente = {
@@ -37,9 +37,9 @@ const ClienteProvider = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider value={{ clientes, saveCliente }}>
+    <ClienteContext.Provider value={{ clientes, saveCliente }}>
       {children}
-    </UserContext.Provider>
+    </ClienteContext.Provider>
   )
 }
 
