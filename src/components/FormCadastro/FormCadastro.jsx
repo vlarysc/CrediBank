@@ -12,11 +12,9 @@ import {
   valSenhaConfirmada,
 } from '../../utils/Validacoes.js';
 
-
-
 function FormCadastro() {
   const { saveCliente } = useContext(ClienteContext);
-  const [cliente, setCliente] = useState()
+  const [cliente, setCliente] = useState();
   const [nome, setNome] = useState('');
   const [sobrenome, setSobrenome] = useState('');
   const [cpf, setCPF] = useState('');
@@ -33,7 +31,7 @@ function FormCadastro() {
     senha: { valido: true, texto: '' },
     senhaConfirmada: { valido: true, texto: '' },
   });
-  console.log(valCPF)
+  console.log(valCPF);
 
   function inputChange() {
     setCliente({
@@ -45,40 +43,28 @@ function FormCadastro() {
       email: email,
       telefone: telefone,
       senha: senha,
-    })
+    });
   }
 
   function salvar(e) {
     e.preventDefault();
     if (
-      !nome ||
-      !sobrenome ||
-      !cpf ||
-      !nascimento ||
-      !email ||
-      !telefone ||
-      !senha ||
-      !senhaConfirmada
+      !erros.cpf.valido ||
+      !erros.nascimento.valido ||
+      !erros.email.valido ||
+      !erros.senha.valido ||
+      !erros.senhaConfirmada.valido
     ) {
       Notify('error', 'Campo Obrigatório!');
-    }
-    if (cpf.length !== 11) {
-      Notify('error', 'Campo Obrigatório!');
-    }
-    if (telefone.length !== 11) {
-      Notify('error', 'Campo Obrigatório!');
-
     } else {
       Notify('success', 'Cadastrado com Sucesso!');
       saveCliente(cliente);
-      console.log("All clientes", cliente)
+      console.log('All clientes', cliente);
     }
   }
 
   return (
-    <form
-      onSubmit={salvar}
-    >
+    <form onSubmit={salvar}>
       <TextField
         onChange={(e) => {
           setNome(e.target.value);
@@ -86,6 +72,7 @@ function FormCadastro() {
         }}
         value={nome}
         label="Nome"
+        required
         variant="outlined"
         fullWidth
         margin="normal"
@@ -94,6 +81,7 @@ function FormCadastro() {
         onChange={(e) => setSobrenome(e.target.value)}
         value={sobrenome}
         label="Sobrenome"
+        required
         variant="outlined"
         fullWidth
         margin="normal"
@@ -110,6 +98,7 @@ function FormCadastro() {
           const validar = valCPF(cpf);
           setErros({ ...erros, cpf: validar });
         }}
+        required
         label="CPF"
         variant="outlined"
         margin="normal"
@@ -122,11 +111,16 @@ function FormCadastro() {
           inputChange();
         }}
         value={nascimento}
-        error={!erros.nascimento.valido}
-        helperText={erros.nascimento.texto}
+        onBlur={() => {
+          const validar = valNascimento(nascimento);
+          setErros({ ...erros, nascimento: validar });
+        }}
       >
         {() => (
           <TextField
+            required
+            error={!erros.nascimento.valido}
+            helperText={erros.nascimento.texto}
             label="Nascimento"
             variant="outlined"
             margin="normal"
@@ -146,6 +140,7 @@ function FormCadastro() {
           const validar = valEmail(email);
           setErros({ ...erros, email: validar });
         }}
+        required
         label="E-mail"
         variant="outlined"
         fullWidth
@@ -158,7 +153,6 @@ function FormCadastro() {
           inputChange();
         }}
         value={telefone}
-
         onBlur={() => {
           const validar = valTelefone(telefone);
           setErros({ ...erros, telefone: validar });
@@ -166,6 +160,7 @@ function FormCadastro() {
       >
         {() => (
           <TextField
+            required
             error={!erros.telefone.valido}
             helperText={erros.telefone.texto}
             label="Telefone"
@@ -183,6 +178,11 @@ function FormCadastro() {
         value={senha}
         error={!erros.senha.valido}
         helperText={erros.senha.texto}
+        onBlur={() => {
+          const validar = valSenha(senha);
+          setErros({ ...erros, senha: validar });
+        }}
+        required
         label="Senha"
         variant="outlined"
         margin="normal"
@@ -198,9 +198,10 @@ function FormCadastro() {
         error={!erros.senhaConfirmada.valido}
         helperText={erros.senhaConfirmada.texto}
         onBlur={() => {
-          const validar = valSenhaConfirmada(senhaConfirmada, senha)
-          setSenhaConfirmada({ ...erros, senhaConfirmada: validar })
+          const validar = valSenhaConfirmada(senhaConfirmada === senha);
+          setErros({ ...erros, senhaConfirmada: validar });
         }}
+        required
         label="Senha"
         variant="outlined"
         margin="normal"
