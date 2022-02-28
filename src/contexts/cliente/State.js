@@ -1,6 +1,6 @@
-import React, { createContext, useState } from 'react';
+import React, { useState, createContext } from 'react';
 
-const UserContext = createContext();
+export const UserContext = createContext();
 
 const ClienteProvider = ({ children }) => {
   const [clientes, setClientes] = useState([
@@ -37,7 +37,7 @@ const ClienteProvider = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider value={clientes, saveCliente}>
+    <UserContext.Provider value={{ clientes, saveCliente }}>
       {children}
     </UserContext.Provider>
   )

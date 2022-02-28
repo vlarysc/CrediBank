@@ -1,7 +1,7 @@
-import ClienteProvider from './contexts/State.js'
+import ClienteProvider from './contexts/cliente/State.js'
 import './App.css';
 import React from 'react';
-/* import { Container } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import FormCadastro from './components/FormCadastro/FormCadastro';
 import Notify from './utils/Notify.js';
 import {
@@ -13,13 +13,13 @@ import {
   valNascimento,
   valNome,
   valSobrenome
-} from './utils/Validacoes.js'; */
+} from './utils/Validacoes.js';
 import Clientes from './components/Clientes'
 
-const App = () => {
+function App() {
   return (
     <ClienteProvider>
-      {/*       <Container maxWidth="sm">
+      <Container maxWidth="sm">
         <h1 align="center">CrediBank</h1>
         <FormCadastro
           save={cadastrar}
@@ -32,14 +32,14 @@ const App = () => {
           valNome={valNome}
           valSobrenome={valSobrenome}
         />
-      </Container> */}
+      </Container>
       <Clientes></Clientes>
     </ClienteProvider>
   );
 }
 
 
-/* function cadastrar(dados) {
+function cadastrar(dados) {
   const {
     nome,
     sobrenome,
@@ -67,11 +67,11 @@ const App = () => {
   }
   if (telefone.length !== 11) {
     Notify('error', 'Campo Obrigatório!');
-   
+
   } else {
     Notify('success', 'Cadastrado com Sucesso!');
     console.log(dados);
   }
-} */
+}
 
 export default App;
