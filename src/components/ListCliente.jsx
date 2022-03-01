@@ -11,7 +11,7 @@ function ListCliente({ cliente }) {
       {cliente.nascimento} -
       {cliente.email} -
       {cliente.telefone} -
-      {cliente.senha} -
+      {cliente.senha}
     </div>
   )
 }

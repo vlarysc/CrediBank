@@ -31,7 +31,7 @@ function FormCadastro() {
     senha: { valido: true, texto: '' },
     senhaConfirmada: { valido: true, texto: '' },
   });
-  console.log(valCPF);
+  const context = useContext(ClienteContext);
 
   function inputChange() {
     setCliente({
@@ -48,6 +48,14 @@ function FormCadastro() {
 
   function salvar(e) {
     e.preventDefault();
+    const clienteFind = context.clientes.filter((obj) =>
+      obj.cpf === cpf
+    );
+    if (clienteFind[0] == undefined) {
+      console.log('existe', clienteFind[0])
+    }
+    /*     console.log("oisss", clienteFind.length) */
+
     if (
       !erros.cpf.valido ||
       !erros.nascimento.valido ||
@@ -56,10 +64,14 @@ function FormCadastro() {
       !erros.senhaConfirmada.valido
     ) {
       Notify('error', 'Campo Obrigatório!');
-    } else {
+    }
+    if (clienteFind[0] !== undefined) {
+      Notify('error', 'Esse CPF já foi cadastrado!');
+    }
+    else {
       Notify('success', 'Cadastrado com Sucesso!');
       saveCliente(cliente);
-      console.log('All clientes', cliente);
+      /*  console.log('All clientes', cliente); */
     }
   }
 

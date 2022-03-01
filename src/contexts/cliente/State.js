@@ -4,24 +4,24 @@ export const ClienteContext = createContext();
 
 const ClienteProvider = ({ children }) => {
   const [clientes, setClientes] = useState([
-    /*  {
-       nome: "Manoel",
-       sobrenome: "Alves",
-       cpf: "11111111111",
-       nascimento: "11071993",
-       email: "dsa@gmail.com",
-       telefone: "5499999999",
-       senha: "852165785",
-     },
-     {
-       nome: "Manoel",
-       sobrenome: "Alves",
-       cpf: "11111111111",
-       nascimento: "11071993",
-       email: "dsa@gmail.com",
-       telefone: "5499999999",
-       senha: "852165785",
-     } */
+    {
+      nome: "Manoel",
+      sobrenome: "Alves",
+      cpf: "05006748377",
+      nascimento: "11071993",
+      email: "dsa@gmail.com",
+      telefone: "5499999999",
+      senha: "852165785",
+    },
+    {
+      nome: "Debora",
+      sobrenome: "Seco",
+      cpf: "61825646015",
+      nascimento: "11071993",
+      email: "dsa@gmail.com",
+      telefone: "5499999999",
+      senha: "852165785",
+    }
   ]);
   const saveCliente = cliente => {
     const novoCliente = {

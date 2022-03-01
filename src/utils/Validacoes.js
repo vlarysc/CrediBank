@@ -1,8 +1,9 @@
 import validator from 'validator';
+import { cpf } from 'cpf-cnpj-validator';
 
-export function valCPF(cpf) {
-  if (cpf.length !== 11) {
-    return { valido: false, texto: "CPF deve ter 11 digitos." }
+export function valCPF(cpff) {
+  if (!cpf.isValid(cpff)) {
+    return { valido: false, texto: "CPF inválido." }
   } else {
     return { valido: true, texto: "" }
   }
@@ -10,7 +11,6 @@ export function valCPF(cpf) {
 
 export function valNascimento(nascimento) {
   if (nascimento === "__/__/____" || nascimento.replace(/\D/g, "").length !== 8) {
-    console.log(nascimento.length);
     return { valido: false, texto: "Campo obrigatório" }
   } else {
     return { valido: true, texto: "" }
