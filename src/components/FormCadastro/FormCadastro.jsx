@@ -33,6 +33,7 @@ function FormCadastro() {
   });
   const context = useContext(ClienteContext);
 
+
   function inputChange() {
     setCliente({
       ...cliente,
@@ -52,9 +53,8 @@ function FormCadastro() {
       obj.cpf === cpf
     );
     if (clienteFind[0] == undefined) {
-      console.log('existe', clienteFind[0])
+      /*  console.log('existe', clienteFind[0]) */
     }
-    /*     console.log("oisss", clienteFind.length) */
 
     if (
       !erros.cpf.valido ||
@@ -71,7 +71,6 @@ function FormCadastro() {
     else {
       Notify('success', 'Cadastrado com Sucesso!');
       saveCliente(cliente);
-      /*  console.log('All clientes', cliente); */
     }
   }
 

@@ -1,28 +1,18 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 
 export const ClienteContext = createContext();
 
 const ClienteProvider = ({ children }) => {
-  const [clientes, setClientes] = useState([
-    {
-      nome: "Manoel",
-      sobrenome: "Alves",
-      cpf: "05006748377",
-      nascimento: "11071993",
-      email: "dsa@gmail.com",
-      telefone: "5499999999",
-      senha: "852165785",
-    },
-    {
-      nome: "Debora",
-      sobrenome: "Seco",
-      cpf: "61825646015",
-      nascimento: "11071993",
-      email: "dsa@gmail.com",
-      telefone: "5499999999",
-      senha: "852165785",
-    }
-  ]);
+  const [clientes, setClientes] = useState([]);
+  /*   let getDados = JSON.parse(localStorage.getItem("clientes"));
+    useEffect(() => {
+      setClientes(getDados);
+          console.log("Json", getDados);
+    }, [getDados]); */
+
+  /* fazer um map e para cada cliente que existir no localStorage
+  puxar um por um usando o saveCliente */
+
   const saveCliente = cliente => {
     const novoCliente = {
       nome: cliente.nome,
@@ -33,9 +23,11 @@ const ClienteProvider = ({ children }) => {
       telefone: cliente.telefone,
       senha: cliente.senha,
     }
-    setClientes([...clientes, novoCliente])
+    setClientes([...clientes, novoCliente]);
   }
-
+  //Eu vou adicionar alguns clientes e depois vou apagar o comando de adicionar ao localStorage e vou começar a tentar pegar os valores e joga-los no meu estado
+  /*   clientes.length !== 0 ? localStorage.setItem("clientes", JSON.stringify([...clientes])) :
+      console.log(clientes.length) */
   return (
     <ClienteContext.Provider value={{ clientes, saveCliente }}>
       {children}
