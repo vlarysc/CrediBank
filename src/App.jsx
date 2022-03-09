@@ -4,19 +4,21 @@ import React from 'react';
 import { Container } from '@material-ui/core';
 import FormCadastro from './components/FormCadastro/FormCadastro';
 import Login from './components/TelaLogin/Login';
-import Clientes from './components/Clientes';
+import TabelaClientes from './components/TabelaClientes/TabelaClientes';
+/* import Clientes from './components/Clientes'; */
 
 
 function App() {
 
   return (
     <ClienteProvider>
-      <Container maxWidth="sm">
+      <Container>
         <h1 align="center">CrediBank</h1>
-        {/* <Login /> */}
-        <FormCadastro />
+        {/* <Login maxWidth="sm"/> */}
+        <FormCadastro maxWidth="sm" />
+        <TabelaClientes />
       </Container>
-      <Clientes></Clientes>
+      {/* <Clientes></Clientes> */}
     </ClienteProvider>
   );
 }

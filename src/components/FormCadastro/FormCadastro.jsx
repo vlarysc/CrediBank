@@ -71,6 +71,7 @@ function FormCadastro() {
     else {
       Notify('success', 'Cadastrado com Sucesso!');
       saveCliente(cliente);
+      console.log(cliente)
     }
   }
 
