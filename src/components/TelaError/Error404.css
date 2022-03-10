@@ -1,0 +1,26 @@
+.doguito-imagem {
+  width: 100%;
+  max-width: 25rem;
+  margin-top: 1.25rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.naoencontrado-texto {
+  font-size: var(--fonte-tamanho-naoencontrado-texto);
+  margin-bottom: 1rem;
+}
+
+.naoencontrado-link {
+  color: var(--cor-primaria);
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+}
+.centered h1 {
+  color: #f6e58d;
+  font-size: 96px;
+}

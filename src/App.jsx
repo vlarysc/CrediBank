@@ -4,9 +4,9 @@ import React from 'react';
 import { Container } from '@material-ui/core';
 import FormCadastro from './components/FormCadastro/FormCadastro';
 import Login from './components/TelaLogin/Login';
+import Error from './components/TelaError/Error404';
 import TabelaClientes from './components/TabelaClientes/TabelaClientes';
-/* import Clientes from './components/Clientes'; */
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 
 function App() {
@@ -25,6 +25,9 @@ function App() {
               </Route>
               <Route path="/clientes">
                 <TabelaClientes />
+              </Route>
+              <Route>
+                <Error />
               </Route>
             </Switch>
           </div>

@@ -7,7 +7,16 @@ const ClienteProvider = ({ children }) => {
     if (JSON.parse(localStorage.getItem("clientes"))) {
       return JSON.parse(localStorage.getItem("clientes"))
     }
-    return []
+    return [{
+      id: 1,
+      nome: "Manoel",
+      sobrenome: "Neto",
+      cpf: "69574883060",
+      nascimento: "11/07/1994",
+      email: "manoelfranciscose@gmail.com",
+      telefone: "(54) 9 9690-1309",
+      senha: "69574883060"
+    }]
   }
   const [clientes, setClientes] = useState(clienteExiste());
 
