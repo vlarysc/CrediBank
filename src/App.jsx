@@ -6,7 +6,8 @@ import FormCadastro from './components/FormCadastro/FormCadastro';
 import Login from './components/TelaLogin/Login';
 import Error from './components/TelaError/Error404';
 import TabelaClientes from './components/TabelaClientes/TabelaClientes';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { usuarioAutenticado } from './auth/auth.js';
 
 
 function App() {
@@ -17,14 +18,20 @@ function App() {
         <Router>
           <div>
             <Switch>
-              <Route exact path="/login">
-                <Login maxWidth="sm" />
+              <Route path="/login">
+                <Login />
               </Route>
-              <Route exact path="/cadastro">
-                <FormCadastro maxWidth="sm" />
+              <Route exact path="/"
+                render={() => usuarioAutenticado() ? <FormCadastro maxWidth="sm" /> : <Redirect to="/login" />}
+              >
               </Route>
-              <Route path="/clientes">
-                <TabelaClientes />
+              <Route exact path="/cadastro"
+                render={() => usuarioAutenticado() ? <FormCadastro maxWidth="sm" /> : <Redirect to="/login" />}
+              >
+              </Route>
+              <Route exact path="/clientes"
+                render={() => usuarioAutenticado() ? <TabelaClientes maxWidth="sm" /> : <Redirect to="/login" />}
+              >
               </Route>
               <Route>
                 <Error />
@@ -36,5 +43,7 @@ function App() {
     </ClienteProvider>
   );
 }
+
+
 
 export default App;

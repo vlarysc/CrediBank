@@ -1,15 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { TextField, Fab, Typography } from '@material-ui/core';
+import { autenticandoUsuario } from '../../auth/auth.js';
+import { useHistory } from 'react-router-dom'
+import { ClienteContext } from '../../contexts/cliente/State.js'
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  console.log(email, senha);
+  const user = {
+    email,
+    senha,
+  }
+  let history = useHistory();
+  const { clientes } = useContext(ClienteContext);
 
-  // Puxar dados de clientes para validar se existe aquele cliente, caso existir, criar um estado para session
-
+  function entrar(e) {
+    e.preventDefault();
+    autenticandoUsuario(user, clientes)
+    setTimeout(function () {
+      history.push('/clientes')
+    }, 3000)
+  }
   return (
     <form
+      onSubmit={entrar}
       align="center"
       style={{
         background: '#c8d6e567',
@@ -69,6 +83,7 @@ const Login = () => {
             left: '58%',
             marginTop: '20px',
           }}
+
         >
           Entrar
         </Fab>
@@ -84,7 +99,7 @@ const Login = () => {
         </Fab>
       </Typography>
     </form>
+
   );
 };
-
 export default Login;
